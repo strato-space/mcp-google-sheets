@@ -11,6 +11,7 @@ import json
 from dataclasses import dataclass
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+import asyncio
 
 # MCP imports
 from mcp.server.fastmcp import FastMCP, Context
@@ -943,6 +944,6 @@ def share_spreadsheet(spreadsheet_id: str,
             
     return {"successes": successes, "failures": failures}
 
-def main():
-    # Run the server
-    mcp.run()
+async def main():
+    # Run the server (blocking) in a thread to provide an async entrypoint
+    await asyncio.to_thread(mcp.run)
