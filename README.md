@@ -9,7 +9,7 @@
   </p>
 
 [![PyPI - Version](https://img.shields.io/pypi/v/mcp-google-sheets)](https://pypi.org/project/mcp-google-sheets/)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/mcp-google-sheets)](https://pypi.org/project/mcp-google-sheets/)
+[![PyPI Downloads](https://static.pepy.tech/badge/mcp-google-sheets)](https://pepy.tech/projects/mcp-google-sheets)
 ![GitHub License](https://img.shields.io/github/license/xing5/mcp-google-sheets)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xing5/mcp-google-sheets/release.yml)
 </div>
@@ -238,7 +238,9 @@ The server needs credentials to access Google APIs. Choose one method:
     2.  `gcloud auth application-default login` credentials (local development)
     3.  Attached service account from metadata server (GKE, Compute Engine, etc.)
 *   **Setup:**
-    *   **Local Development:** Run `gcloud auth application-default login` once
+    *   **Local Development:** 
+        1. Run `gcloud auth application-default login --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive` once
+        2. Set a quota project: `gcloud auth application-default set-quota-project <project_id>` (replace `<project_id>` with your Google Cloud project ID)
     *   **Google Cloud:** Attach a service account to your compute resource
     *   **Environment Variable:** Set `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json` (Google's standard)
 *   **No additional environment variables needed** - ADC is used automatically as a fallback when other methods fail.
@@ -410,7 +412,9 @@ Add the server config to `claude_desktop_config.json` under `mcpServers`. Choose
   }
 }
 ```
-*Prerequisites: Run `gcloud auth application-default login` first.*
+*Prerequisites:* 
+1. *Run `gcloud auth application-default login --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive` first.*
+2. *Set quota project: `gcloud auth application-default set-quota-project <project_id>`*
 
 **🍎 macOS Note:** If you get a `spawn uvx ENOENT` error, replace `"command": "uvx"` with `"command": "/Users/yourusername/.local/bin/uvx"` (replace `yourusername` with your actual username).
 </details>
